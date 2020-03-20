@@ -1,49 +1,42 @@
-import React, { Fragment, Component } from 'react'
+import React, { Component, Fragment } from 'react';
 import Header from './Header';
 import DataTable from './DataTable';
+import ApiService from './Api';
+import PopUp from './PopUp';
+class Livros extends Component {
 
-export default class Livros extends Component {
+    constructor(props) {
+        super(props);
 
-    state = {
-        autores: [
-            {
-                nome: 'Paulo',
-                livro: 'React',
-                preco: '1000'
-            },
-            {
-                nome: 'Daniel',
-                livro: 'Java',
-                preco: '99'
-            },
-            {
-                nome: 'Marcos',
-                livro: 'Design',
-                preco: '150'
-            },
-            {
-                nome: 'Bruno',
-                livro: 'DevOps',
-                preco: '100'
-            }
-        ],
-        titulo: 'Livros'
+        this.state = {
+            livros: [],
+            titulo: 'Livros'
+        };
     }
 
+    componentDidMount(){
+        ApiService.ListaLivros()
+                    .then(res => {
+                        if(res.message === 'success'){
+                            PopUp.exibeMensagem('success', 'Livros listados com sucesso');
+                            this.setState({livros : [...this.state.livros, ...res.data]});
+
+                        }
+                    })
+                    .catch(err => PopUp.exibeMensagem('error', 'Falha na comunicação com a API ao listar os livros'));
+    }
 
     render() {
-
         return (
             <Fragment>
-                <Header></Header>
-                <div className="container">
-
-                    <h1>Livros</h1>
-                    <DataTable dados={this.state.autores} titulo={this.state.titulo} colunas={['livro']}></DataTable>
+                <Header />
+                <div className='container'>
+                    <h1>Página de Livros</h1>
+                    <DataTable dados={this.state.livros} titulo={this.state.titulo} colunas={['livro']} />
                 </div>
-
             </Fragment>
-
-        )
+        );
     }
+
 }
+export default Livros;

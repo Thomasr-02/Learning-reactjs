@@ -45,19 +45,20 @@ class App extends Component {
         return posAtual !== index;
       }),
     })
-    PopUp.exibeMensagem("error","Autor removido com sucesso!")
+    PopUp.exibeMensagem("remove", "Autor removido com sucesso!")
 
   }
 
   escutadorDeSubmit = autor => {
     this.setState({ autores: [...this.state.autores, autor] });
-    PopUp.exibeMensagem("success","Autor adicionado com sucesso!")
+    PopUp.exibeMensagem("success", "Autor adicionado com sucesso!")
   }
   render() {
     return (
 
       <div>
         <Header />
+        <h1>Cadastro de livros</h1>
         <div className="container">
           <Tabela autores={this.state.autores} removeAutor={this.removeAutor} />
           <Formulario escutadorDeSubmit={this.escutadorDeSubmit} />

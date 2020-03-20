@@ -1,15 +1,16 @@
 import React from 'react';
+import {Link} from 'react-router-dom'
 
 const Header = () => {
 
     return (
         <nav>
             <div className="nav-wrapper blue darken-1">
-                <a href="/" className="brand-logo right">Logo</a>
+                <Link to="/" className="brand-logo right">Logo</Link>
                 <ul id="nav-mobile" >
-                    <li><a href="/autores">Autores</a></li>
-                    <li><a href="/livros">Livros</a></li>
-                    <li><a href="/sobre">Sobre</a></li>
+                    <li><Link to="/autores">Autores</Link></li>
+                    <li><Link to="/livros">Livros</Link></li>
+                    <li><Link to="/sobre">Sobre</Link></li>
                 </ul>
             </div>
         </nav>

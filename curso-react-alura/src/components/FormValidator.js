@@ -11,8 +11,8 @@ class FormValidator {
         let validacao = this.valido();
 
         this.validacoes.forEach(regra => {
-            
-        
+
+
             if (!validacao[regra.campo].isInvalid) {
                 const campoValor = state[regra.campo.toString()];
                 const args = regra.args || [];
@@ -20,9 +20,9 @@ class FormValidator {
                     validador[regra.metodo] : regra.metodo;
 
                 if (metodoValidacao(campoValor, ...args, state) !== regra.validoQuando) {
-                    validacao[regra.campo] = { 
-                        isInvalid: true, 
-                        message: regra.mensagem 
+                    validacao[regra.campo] = {
+                        isInvalid: true,
+                        message: regra.mensagem
                     };
                     validacao.isValid = false;
 

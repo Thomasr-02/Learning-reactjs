@@ -10,6 +10,8 @@ const PopUp = {
     if (status === "error")
       M.toast({ html: msg, classes: "red rounded", displayLength: 2000 })
 
+    if (status === "remove")
+      M.toast({ html: msg, classes: "orange rounded", displayLength: 2000 })
 
   }
 }

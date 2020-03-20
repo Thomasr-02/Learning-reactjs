@@ -1,15 +1,16 @@
-import React, { Fragment } from 'react'
+import React, { Fragment , Component} from 'react'
 import Header from './Header'
 
-const Sobre = () => {
-    return (
-        <Fragment>
-            <Header></Header>
-            <h1>Sobre</h1>
+export default class Sobre extends Component  {
+    render() {
 
-        </Fragment>
+        return (
+            <Fragment>
+                <Header></Header>
+                <h1>Sobre</h1>
 
-    )
+            </Fragment>
+
+        )
+    }
 }
-
-export default Sobre;

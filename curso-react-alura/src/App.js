@@ -1,71 +1,72 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import 'materialize-css/dist/css/materialize.min.css';
-
-import Tabela from './components/Tabela';
-import Formulario from './components/Formulario';
+import './App.css';
 import Header from './components/Header';
-import PopUp from './components/PopUp'
-import './App.css'
+import Tabela from './components/Tabela';
+import Form from './components/Formulario';
+import PopUp from './components/PopUp';
+import ApiService from './components/Api';
 
 class App extends Component {
 
+  constructor(props) {
+    super(props);
 
-
-  state = {
-    autores: [
-      {
-        nome: 'Paulo',
-        livro: 'React',
-        preco: '1000'
-      },
-      {
-        nome: 'Daniel',
-        livro: 'Java',
-        preco: '99'
-      },
-      {
-        nome: 'Marcos',
-        livro: 'Design',
-        preco: '150'
-      },
-      {
-        nome: 'Bruno',
-        livro: 'DevOps',
-        preco: '100'
-      }
-    ],
+    this.state = {
+      autores: [],
+    };
   }
 
-  removeAutor = index => {
+  removeAutor = id => {
 
     const { autores } = this.state;
 
-    this.setState({
-      autores: autores.filter((autor, posAtual) => {
-        return posAtual !== index;
-      }),
-    })
-    PopUp.exibeMensagem("remove", "Autor removido com sucesso!")
-
+    this.setState(
+      {
+        autores: autores.filter(autor => {
+          return autor.id !== id;
+        }),
+      }
+    );
+    PopUp.exibeMensagem("error", "Autor removido com sucesso");
+    ApiService.RemoveAutor(id);
   }
 
   escutadorDeSubmit = autor => {
-    this.setState({ autores: [...this.state.autores, autor] });
-    PopUp.exibeMensagem("success", "Autor adicionado com sucesso!")
-  }
-  render() {
-    return (
+    ApiService.CriaAutor(JSON.stringify(autor))
+      .then(res => res.data)
+      .then(autor => {
+        this.setState({ autores:[...this.state.autores, autor]});
+        PopUp.exibeMensagem("success", "Autor adicionado com sucesso");
+      })
 
-      <div>
+
+
+  }
+
+
+  componentDidMount() {
+    ApiService.ListaAutores()
+      .then(res => {
+          this.setState({ autores: [...this.state.autores, ...res.data] })
+
+      })
+  }
+
+  render() {
+
+    return (
+      <Fragment>
         <Header />
-        <h1>Cadastro de livros</h1>
-        <div className="container">
+        <div className="container mb-10">
+          <h1>Casa do Código</h1>
           <Tabela autores={this.state.autores} removeAutor={this.removeAutor} />
-          <Formulario escutadorDeSubmit={this.escutadorDeSubmit} />
+          <Form escutadorDeSubmit={this.escutadorDeSubmit} />
         </div>
-      </div>
+      </Fragment>
     );
   }
+
 }
 
 export default App;

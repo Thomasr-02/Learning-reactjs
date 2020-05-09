@@ -1,0 +1,13 @@
+.repositorios{
+    padding-top: 10px 10px 10px 10px;
+}
+.repo{
+    font-style: italic;
+    font-size: large;
+    padding-top: 10px;
+    text-align: left;
+}
+.input{
+    color: black;
+    background-color: black;
+}

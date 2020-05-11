@@ -19,7 +19,7 @@ export default function ConvertTemp() {
       }
       if ("unitB" =="Kelvin") {
         //converter de celsius para kelvin
-        console.log('ete')
+        console.log('teste')
         
       } else {
         setTempB( tempA);
@@ -33,7 +33,7 @@ export default function ConvertTemp() {
   }
   useEffect(() => {
     convertTemperature();
-  }, [unitA, unitB, tempA,tempB]);
+  }, [unitA, unitB, tempA, tempB, convertTemperature]);
   
 
 

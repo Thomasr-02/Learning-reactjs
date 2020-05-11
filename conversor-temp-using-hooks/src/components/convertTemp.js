@@ -6,34 +6,38 @@ export default function ConvertTemp() {
   const [unitA, setUnitA] = useState("Celsius");
   const [unitB, setUnitB] = useState("Celsius");
   const [tempA, setTempA] = useState(0);
+  const [tempB, setTempB] = useState(0);
+  
 
   function convertTemperature() {
-    var tempB = document.getElementById("tempB");
-    console.log('undi A:'+unitA+' unit b:'+unitB)
     if (unitA == "Celsius") {
       if (unitB == "Fahrenheit") {
-        //conversao de celsius para celsius
-        console.log(celsiusToFahrenheit(tempA))
-        tempB.value = celsiusToFahrenheit(tempA);
-        console.log(tempB.value);
+        //converter de celsius para fahrenheit
+        var auxTemp = celsiusToFahrenheit(tempA)
+        console.log(auxTemp)
+        setTempB(auxTemp);
       }
       if ("unitB" =="Kelvin") {
+        //converter de celsius para kelvin
         console.log('ete')
         
-        //converter de celsius para fahrenheit
       } else {
-        tempB.value = tempA;
-        //converter de celsius para kelvin
+        setTempB( tempA);
+        //conversao de celsius para celsius
       }
     }
   }
-
+  
   function celsiusToFahrenheit(value) {
     return (value * 1.8 + 32) ;
-}
+  }
   useEffect(() => {
     convertTemperature();
-  }, [unitA, unitB, tempA]);
+  }, [unitA, unitB, tempA,tempB]);
+  
+
+
+  console.log(tempB);
   return (
     <>
       <div id="container">
@@ -59,8 +63,7 @@ export default function ConvertTemp() {
         </div>
         <span id="equal"> = </span>
         <div id="blockB">
-          <input type="number" id="tempB" disabled="disabled" name="tempB" />
-
+          <h3>{tempB}</h3>
           <select
             id="uintB"
             onChange={(e) => {

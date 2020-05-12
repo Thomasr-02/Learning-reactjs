@@ -7,37 +7,75 @@ export default function ConvertTemp() {
   const [unitB, setUnitB] = useState("Celsius");
   const [tempA, setTempA] = useState(0);
   const [tempB, setTempB] = useState(0);
-  
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   function convertTemperature() {
-    if (unitA == "Celsius") {
-      if (unitB == "Fahrenheit") {
+//convertendo de celsius para algo
+    if (unitA === "Celsius") {
+      if (unitB === "Fahrenheit") {
         //converter de celsius para fahrenheit
-        var auxTemp = celsiusToFahrenheit(tempA)
-        console.log(auxTemp)
-        setTempB(auxTemp);
-      }
-      if ("unitB" =="Kelvin") {
+        setTempB(celsiusToFahrenheit(tempA));
+      } else if (unitB === "Kelvin") {
         //converter de celsius para kelvin
-        console.log('teste')
-        
-      } else {
-        setTempB( tempA);
+        setTempB(celsiusToKelvin(tempA));
+        console.log('celsius to kelvin')
+      } else if (unitB === "Celsius") {
+        setTempB(tempA);
         //conversao de celsius para celsius
       }
     }
+    else if (unitA === "Kelvin") {
+      if (unitB === "Fahrenheit") {
+        //converter de celsius para fahrenheit
+        setTempB(kelvinToFahrenheit(tempA));
+      } else if (unitB === "Celsius") {
+        //converter de celsius para kelvin
+        let varAux =kelvinToCelsius(tempA);
+        setTempB(varAux);
+      } else if (unitB === "Kelvin") {
+        setTempB(tempA);
+        //conversao de celsius para celsius
+      }
+    }
+    else if (unitA === "Fahrenheit") {
+      if (unitB === "Fahrenheit") {
+        //converter de celsius para fahrenheit
+        setTempB(tempA);
+      } else if (unitB === "Celsius") {
+        //converter de celsius para kelvin
+        setTempB(fahrenheitToCelsius(tempA));
+      } else if (unitB === "Kelvin") {
+        setTempB(fahrenheitToKelvin(tempA));
+        //conversao de celsius para celsius
+      }
+    } 
+    
   }
-  
+
   function celsiusToFahrenheit(value) {
-    return (value * 1.8 + 32) ;
+    return value * 1.8 + 32;
   }
+  function celsiusToKelvin(value) {
+  
+    return (value*1 + 273.15);
+  }
+  function fahrenheitToCelsius(value) {
+    return ((value - 32) * 5) / 9;
+  }
+  function fahrenheitToKelvin(value) {
+    return ((value*1 + 459.67) *( 5 / 9));
+  }
+  function kelvinToCelsius(value) {
+    return value - 273.15;
+  }
+  function kelvinToFahrenheit(value) {
+    return value * 1.8 - 459.67;
+  }
+
   useEffect(() => {
     convertTemperature();
   }, [unitA, unitB, tempA, tempB, convertTemperature]);
-  
 
-
-  console.log(tempB);
   return (
     <>
       <div id="container">
@@ -63,7 +101,8 @@ export default function ConvertTemp() {
         </div>
         <span id="equal"> = </span>
         <div id="blockB">
-          <h3>{tempB}</h3>
+          <input type="number" value={tempB} disabled />
+
           <select
             id="uintB"
             onChange={(e) => {

@@ -26,20 +26,20 @@ export default function ConvertTemp() {
     }
     else if (unitA === "Kelvin") {
       if (unitB === "Fahrenheit") {
-        //converter de celsius para fahrenheit
+        //converter de kelvin para fahrenheit
         setTempB(kelvinToFahrenheit(tempA));
       } else if (unitB === "Celsius") {
-        //converter de celsius para kelvin
+        //converter de kelvin para celsius
         let varAux =kelvinToCelsius(tempA);
         setTempB(varAux);
       } else if (unitB === "Kelvin") {
         setTempB(tempA);
-        //conversao de celsius para celsius
+        //conversao de kelvin para kelvin
       }
     }
     else if (unitA === "Fahrenheit") {
       if (unitB === "Fahrenheit") {
-        //converter de celsius para fahrenheit
+        //converter de fahrenheit para fahrenheit
         setTempB(tempA);
       } else if (unitB === "Celsius") {
         //converter de celsius para kelvin
@@ -74,7 +74,7 @@ export default function ConvertTemp() {
 
   useEffect(() => {
     convertTemperature();
-  }, [unitA, unitB, tempA, tempB, convertTemperature]);
+  }, [unitA, unitB, tempA]);
 
   return (
     <>
